@@ -66,7 +66,7 @@ export default function Order() {
           <span>Gerenciando encomendas</span>
         </div>
         <div>
-          <aside>
+          <aside className="blocoPesquisa">
             <input
               type="search"
               onChange={e => setProduct(e.target.value)}

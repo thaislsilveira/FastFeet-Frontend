@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 export const Container = styled.div`
   background: #fff;
@@ -7,26 +8,40 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  nav {
+  ul {
     display: flex;
-    align-items: center;
 
-    img {
-      width: 200px;
-      margin-right: 20px;
-      padding-right: 20px;
-      border-right: 1px solid #eee;
+    li:first-child {
+      margin-left: 20px;
     }
-    a {
-      font-weight: bold;
-      color: #7159c1;
+    .nav-link {
+      color: ${lighten(0.08, '#999999')};
     }
+    li {
+      margin: 0 10px;
+      a {
+        color: #999999;
+        font-size: 15px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  img {
+    width: 200px;
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #eee;
+  }
+  a {
+    font-weight: bold;
+    color: #7159c1;
   }
 
   aside {
