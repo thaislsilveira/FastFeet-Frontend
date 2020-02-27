@@ -69,15 +69,5 @@ export const Content = styled.div`
       margin: 0 0 0 10px;
       font-weight: bold;
     }
-    a {
-      color: #333;
-      margin-top: 15px;
-      font-size: 16px;
-      opacity: 0.8;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
   }
 `;
