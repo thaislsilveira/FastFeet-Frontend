@@ -52,9 +52,9 @@ export const Profile = styled.div`
 
     a {
       display: block;
-      margin-top: 2px;
+      margin-top: 3px;
       font-size: 12 px;
-      color: #999;
+      color: #ff0000;
     }
   }
 `;
