@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import { sighInRequest } from '~/store/modules/auth/actions';
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.png';
 
@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
 export default function SignIn() {
   const dispatch = useDispatch();
   function handleSubmit({ email, password }) {
-    dispatch(sighInRequest(email, password));
+    dispatch(signInRequest(email, password));
   }
   return (
     <>
@@ -29,7 +29,7 @@ export default function SignIn() {
           <h3>SEU E-MAIL</h3>
           <Input name="email" type="email" placeholder="exemplo@email.com" />
           <h3>SUA SENHA</h3>
-          <Input name="password" type="password" placeholder="************* " />
+          <Input name="password" type="password" placeholder="*************" />
 
           <button type="submit">Entrar no sistema</button>
 
