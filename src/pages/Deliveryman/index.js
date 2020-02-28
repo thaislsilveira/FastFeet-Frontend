@@ -9,35 +9,37 @@ import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
 
-export default function Order() {
-  const [product, setProduct] = useState('');
-  const [orders, setOrders] = useState([]);
+export default function Deliveryman() {
+  const [name, setName] = useState('');
+  const [deliverymen, setDeliveryman] = useState([]);
 
   useEffect(() => {
-    async function getOrders() {
+    async function getDeliveryman() {
       try {
-        const response = await api.get(`orders`, {
-          params: { product },
+        const response = await api.get(`deliverymen`, {
+          params: { name },
         });
 
-        setOrders(response.data);
+        setDeliveryman(response.data);
       } catch (err) {
-        toast.error('Nenhuma encomenda foi encontrada');
+        toast.error('Nenhum entregador foi encontrado');
       }
     }
 
-    getOrders();
-  }, [product]);
+    getDeliveryman();
+  }, [name]);
 
   async function handleDelete(id) {
     try {
-      await api.delete(`/order/${id}`);
+      await api.delete(`/deliveryman/${id}`);
 
-      const updatedList = orders.filter(order => order.id !== id);
+      const updatedList = deliverymen.filter(
+        deliveryman => deliveryman.id !== id
+      );
 
-      setOrders(updatedList);
+      setDeliveryman(updatedList);
 
-      toast.success('A encomenda foi excluída');
+      toast.success('O entregador foi excluído');
     } catch (err) {
       toast.error(err.response.data.error);
     }
@@ -46,7 +48,7 @@ export default function Order() {
   function confirmDelete(id) {
     confirmAlert({
       title: 'Confirmação de exclusão',
-      message: 'Você quer mesmo excluir essa encomenda?',
+      message: 'Você quer mesmo excluir esse entregador?',
       buttons: [
         {
           label: 'Sim',
@@ -63,16 +65,16 @@ export default function Order() {
     <>
       <ActionHeader>
         <div>
-          <span>Gerenciando encomendas</span>
+          <span>Gerenciando entregadores</span>
         </div>
         <div>
           <aside className="blocoPesquisa">
             <input
               type="search"
-              onChange={e => setProduct(e.target.value)}
-              placeholder="Buscar por encomendas"
+              onChange={e => setName(e.target.value)}
+              placeholder="Buscar por entregadores"
             />
-            <Link to="/register/orders">
+            <Link to="/register/deliverymen">
               <FaPlus size={13} color="#fff" />
               CADASTRAR
             </Link>
@@ -84,31 +86,25 @@ export default function Order() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Produto</th>
-              <th>Destinatário</th>
-              <th>Entregador</th>
-              <th>Cidade</th>
-              <th>Estado</th>
-              <th>Status</th>
+              <th>Nome</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {orders &&
-              orders.map(order => (
-                <tr key={order.id}>
-                  <td>{order.product}</td>
-                  <td>{order.recipient_id.name}</td>
-                  <td>{order.deliveryman_id.name}</td>
-                  <td>{order.recipient_id.city}</td>
-                  <td>{order.recipient_id.state}</td>
-                  <td />
+            {deliverymen &&
+              deliverymen.map(deliveryman => (
+                <tr key={deliveryman.id}>
+                  <td>{deliveryman.id}</td>
+                  <td>{deliveryman.name}</td>
+                  <td>{deliveryman.email}</td>
+
                   <td>
-                    <Link to={`orders/${order.id}`}>editar</Link>
+                    <Link to={`deliverymen/${deliveryman.id}`}>editar</Link>
                   </td>
                   <td>
                     <button
                       type="button"
-                      onClick={() => confirmDelete(order.id)}
+                      onClick={() => confirmDelete(deliveryman.id)}
                     >
                       apagar
                     </button>

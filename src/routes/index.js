@@ -3,14 +3,25 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import SignIn from '../pages/SignIn';
-
 import Order from '../pages/Order';
+import Deliveryman from '../pages/Deliveryman';
+import AddDeliverymen from '../pages/AddDeliveryman';
+import Recipient from '../pages/Recipient';
+import AddRecipient from '../pages/AddRecipient';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
-      <Route path="/order" component={Order} isPrivate />
+      <Route path="/orders" component={Order} isPrivate />
+      <Route path="/deliverymen" component={Deliveryman} isPrivate />
+      <Route
+        path="/register/deliverymen"
+        component={AddDeliverymen}
+        isPrivate
+      />
+      <Route path="/recipients" component={Recipient} isPrivate />
+      <Route path="/register/recipients" component={AddRecipient} isPrivate />
     </Switch>
   );
 }
