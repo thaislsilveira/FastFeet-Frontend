@@ -9,6 +9,7 @@ import Deliveryman from '../pages/Deliveryman';
 import AddDeliverymen from '../pages/AddDeliveryman';
 import Recipient from '../pages/Recipient';
 import AddRecipient from '../pages/AddRecipient';
+import Problem from '../pages/Problem';
 
 export default function Routes() {
   return (
@@ -24,6 +25,7 @@ export default function Routes() {
       />
       <Route path="/recipients" component={Recipient} isPrivate />
       <Route path="/register/recipients" component={AddRecipient} isPrivate />
+      <Route path="/deliveryproblems" component={Problem} isPrivate />
     </Switch>
   );
 }

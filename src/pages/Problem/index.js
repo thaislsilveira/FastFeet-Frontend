@@ -1,105 +1,80 @@
 import React, { useEffect, useState } from 'react';
-import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
 
-import ActionHeader from '../../components/ActionHeader';
-import ActionContent from '../../components/ActionContent';
-import DefaultTable from '../../components/DefaultTable';
-import PageButton from '../../components/PageButton';
-import Centralizer from '../../components/Centralizer';
-import Modal from '../../components/Modal';
+import ActionHeader from '~/components/ActionHeader';
+import ActionContent from '~/components/ActionContent';
+import DefaultTable from '~/components/DefaultTable';
+import Modal from '~/components/Modal';
 
-export default function HelpOrders() {
-  const [totalPages, setTotalPages] = useState(0);
-  const [page, setpage] = useState(1);
+export default function DeliveryProblems() {
+  const [description] = useState('');
   const [visible, setVisible] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const [problemId, setProblemId] = useState(null);
+  const [problems, setProblems] = useState([]);
 
   useEffect(() => {
-    async function getOrders() {
+    async function getProblems() {
       try {
-        const response = await api.get(`help-orders/students`, {
-          params: { page },
+        const response = await api.get(`deliveryproblems`, {
+          params: { description },
         });
 
-        const data = response.data.rows.map(order => ({
-          ...order,
-          formattedDate: format(
-            parseISO(order.created_at),
-            "d 'de' MMMM 'de ' Y",
-            { locale: pt }
-          ),
-        }));
-        setTotalPages(Math.ceil(response.data.count / 10, 1));
-        setOrders(data);
+        setProblems(response.data);
       } catch (err) {
-        toast.error('Ocorreu um erro ao obter os pedidos de auxílio');
+        toast.error('Ocorreu um erro ao obter os problemas');
       }
     }
-    getOrders();
-  }, [page]);
+    getProblems();
+  }, [description]);
 
   function handleOrderChange(id) {
-    const updatedOrders = orders.filter(ord => ord.id !== id);
-    setOrders(updatedOrders);
+    const updatedProblems = problems.filter(ord => ord.id !== id);
+    setProblems(updatedProblems);
   }
 
   return (
     <>
       <ActionHeader>
         <div>
-          <span>Pedidos de auxílio</span>
+          <span>Problemas na entrega</span>
         </div>
       </ActionHeader>
-      <Centralizer>
-        <PageButton lock={page < 2} funcPage={() => setpage(page - 1)}>
-          Anterior
-        </PageButton>
-        <span>{page}</span>
-        <PageButton
-          lock={page === totalPages}
-          funcPage={() => setpage(page + 1)}
-        >
-          Proximo
-        </PageButton>
-      </Centralizer>
       <ActionContent>
         <DefaultTable>
           <thead>
             <tr>
-              <th>ALUNO</th>
-              <th>EMAIL</th>
-              <th>DATA DE CRIAÇÃO</th>
+              <th>Pedido</th>
+              <th>Problema</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
-              <tr key={order.id}>
-                <td>{order.student_order.name}</td>
-                <td>{order.student_order.email}</td>
-                <td>{order.formattedDate}</td>
-                <td>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOrderId(order.id);
-                      setVisible(true);
-                    }}
-                  >
-                    responder
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {problems &&
+              problems.map(problem => (
+                <tr key={problem.id}>
+                  <td>{problem.order.id}</td>
+                  <td>{problem.description}</td>
+                  <td />
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setProblemId(problem.id);
+                        setVisible(true);
+                      }}
+                    >
+                      Visualizar
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </DefaultTable>
       </ActionContent>
       <Modal
         visible={visible}
-        order_id={orderId}
+        problem_id={problemId}
         hide={() => setVisible(false)}
         handleOrderChange={handleOrderChange}
       />
