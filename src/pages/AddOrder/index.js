@@ -52,13 +52,12 @@ export default function AddOrder() {
 
   const loadDeliverymen = async () => {
     const response = await api.get(`deliverymen?name=${deliverymanName}`);
-    console.log(response);
+
     return response.data;
   };
 
   async function loadRecipients() {
     const response = await api.get(`recipients?name=${recipientName}`);
-    console.log(response);
     return response.data;
   }
 

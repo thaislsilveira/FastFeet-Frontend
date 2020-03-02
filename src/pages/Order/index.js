@@ -96,11 +96,12 @@ export default function Order() {
             {orders &&
               orders.map(order => (
                 <tr key={order.id}>
+                  <td>{order.id}</td>
                   <td>{order.product}</td>
-                  <td>{order.recipient_id.name}</td>
-                  <td>{order.deliveryman_id.name}</td>
-                  <td>{order.recipient_id.city}</td>
-                  <td>{order.recipient_id.state}</td>
+                  <td>{order.recipient.name}</td>
+                  <td>{order.deliveryman.name}</td>
+                  <td>{order.recipient.city}</td>
+                  <td>{order.recipient.state}</td>
                   <td />
                   <td>
                     <Link to={`orders/${order.id}`}>editar</Link>
