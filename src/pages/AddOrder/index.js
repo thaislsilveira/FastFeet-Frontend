@@ -12,8 +12,6 @@ import ActionContent from '../../components/ActionContent';
 
 const schema = Yup.object().shape({
   product: Yup.string().required('O Nome do Produto é obrigatório'),
-  deliveryman_id: Yup.number().required('O ID do Entregador é obrigatório'),
-  recipient_id: Yup.number().required('O ID do Destinatário é obrigatório'),
 });
 
 export default function AddOrder() {
@@ -21,15 +19,13 @@ export default function AddOrder() {
   const [deliverymanSelected, setDeliverymanSelected] = useState(null);
   const [recipientName, setRecipientName] = useState('');
   const [recipientSelected, setRecipientSelected] = useState(null);
+  const [orderProduct, setOrderProduct] = useState('');
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  async function handleSubmit() {
     try {
       await schema.validate(
         {
-          deliveryman_id: deliverymanSelected,
-          recipient_id: recipientSelected,
+          product: orderProduct,
         },
         {
           abortEarly: false,
@@ -43,8 +39,10 @@ export default function AddOrder() {
     }
 
     try {
-      await api.post(`orders/${deliverymanSelected}`, {
+      await api.post(`orders`, {
+        deliveryman_id: deliverymanSelected,
         recipient_id: recipientSelected,
+        product: orderProduct,
       });
       toast.success('Encomenda efetuada com sucesso');
     } catch (err) {
@@ -106,7 +104,12 @@ export default function AddOrder() {
             onChange={s => setDeliverymanSelected(s.id)}
           />
           <label htmlFor="product">Nome do Produto</label>
-          <Input name="product" type="text" placeholder="Yamaha SX7" />
+          <Input
+            name="product"
+            type="text"
+            placeholder="Yamaha SX7"
+            onChange={e => setOrderProduct(e.target.value)}
+          />
         </Form>
       </ActionContent>
     </>
