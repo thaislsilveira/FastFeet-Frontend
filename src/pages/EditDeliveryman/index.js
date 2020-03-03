@@ -27,7 +27,7 @@ export default function EditDeliveryman() {
         name: response.data[0].name,
         email: response.data[0].email,
       };
-      console.log(response);
+
       setDeliverymanData(initialData);
     }
     getDeliverymanData();
