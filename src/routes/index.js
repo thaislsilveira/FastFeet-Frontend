@@ -5,6 +5,7 @@ import Route from './Route';
 import SignIn from '../pages/SignIn';
 import Order from '../pages/Order';
 import AddOrder from '../pages/AddOrder';
+import EditOrders from '../pages/EditOrder';
 import Deliveryman from '../pages/Deliveryman';
 import AddDeliverymen from '../pages/AddDeliveryman';
 import EditDeliverymen from '../pages/EditDeliveryman';
@@ -19,6 +20,7 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route exact path="/orders" component={Order} isPrivate />
       <Route path="/register/orders" component={AddOrder} isPrivate />
+      <Route path="/orders/:id" component={EditOrders} isPrivate />
       <Route exact path="/deliverymen" component={Deliveryman} isPrivate />
       <Route
         path="/register/deliverymen"

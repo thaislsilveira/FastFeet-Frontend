@@ -97,7 +97,6 @@ export default function Deliveryman() {
                   <td>{deliveryman.id}</td>
                   <td>{deliveryman.name}</td>
                   <td>{deliveryman.email}</td>
-
                   <td>
                     <Link to={`deliverymen/${deliveryman.id}`}>editar</Link>
                   </td>
