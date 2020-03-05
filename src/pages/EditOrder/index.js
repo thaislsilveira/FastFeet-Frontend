@@ -32,7 +32,7 @@ export default function EditOrder() {
         recipient_id: response.data[0].recipient,
         deliveryman_id: response.data[0].deliveryman,
       };
-      console.log(initialData);
+
       setOrderProduct(initialData.product);
       setRecipientName(initialData.recipient_id.name);
       setRecipientSelected(initialData.recipient_id.id);
@@ -44,12 +44,16 @@ export default function EditOrder() {
     getOrderData();
   }, [id]);
 
-  async function handleSubmit({ product }) {
+  async function handleSubmit({
+    product,
+    recipientSelected: recipient_id,
+    deliverymanSelected: deliveryman_id,
+  }) {
     try {
       await api.put(`orders/${id}`, {
         product,
-        recipientSelected,
-        deliverymanSelected,
+        recipient_id: recipientSelected,
+        deliveryman_id: deliverymanSelected,
       });
 
       toast.success('Encomenda alterado com sucesso');
