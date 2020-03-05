@@ -31,7 +31,7 @@ export default function Deliveryman() {
 
   async function handleDelete(id) {
     try {
-      await api.delete(`/deliveryman/${id}`);
+      await api.delete(`/deliverymen/${id}`);
 
       const updatedList = deliverymen.filter(
         deliveryman => deliveryman.id !== id

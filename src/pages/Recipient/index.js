@@ -31,7 +31,7 @@ export default function Recipient() {
 
   async function handleDelete(id) {
     try {
-      await api.delete(`/recipietns/${id}`);
+      await api.delete(`/recipients/${id}`);
 
       const updatedList = recipients.filter(recipient => recipient.id !== id);
 

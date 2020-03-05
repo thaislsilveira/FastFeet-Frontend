@@ -8707,10 +8707,15 @@ react-app-rewired@^2.1.5:
   dependencies:
     semver "^5.6.0"
 
-react-confirm-alert@^2.4.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.5.1.tgz#da76bd776a879588fa3f5fa6c7d1f56cbbe25a0e"
-  integrity sha512-awS/18gHnLh3di/KJb8jOJQsFo+ucHICBnnv06osTpbmXeFW0NI1qi5hLoMnK9U70KWzWZcVqq7nzDol9YWE3A==
+react-confirm-alert@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.6.1.tgz#ab870eea77131547daabe2b97f6cd528ca4d921d"
+  integrity sha512-KxlpQoR4x/ET1oFPm/IGpsqnpzP17qkkQZuaO3pw7zGZ9oP5hElPtq/1vgoikoqNHQ2tMm6Iw9HQUNLoNgXkRA==
+
+react-custom-confirm-alert@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-custom-confirm-alert/-/react-custom-confirm-alert-2.0.7.tgz#ed22ed63d16c852a921677a0ece70490df4529f3"
+  integrity sha512-IL1aHS0u8l3KNDTvFztSyU06fuJbmNPbtl2NvWvK17rRCpsDF01Ny1dq+4LTbXIFEbqLtKggfRXmlt2GQYOl6A==
 
 react-dev-utils@^10.2.0:
   version "10.2.0"

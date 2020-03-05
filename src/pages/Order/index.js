@@ -31,7 +31,7 @@ export default function Order() {
 
   async function handleDelete(id) {
     try {
-      await api.delete(`/order/${id}`);
+      await api.delete(`/orders/${id}`);
 
       const updatedList = orders.filter(order => order.id !== id);
 
