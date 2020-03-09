@@ -5,6 +5,7 @@ import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
+import { Avatar } from './styles';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
@@ -86,6 +87,7 @@ export default function Deliveryman() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Foto</th>
               <th>Nome</th>
               <th>Email</th>
             </tr>
@@ -95,6 +97,16 @@ export default function Deliveryman() {
               deliverymen.map(deliveryman => (
                 <tr key={deliveryman.id}>
                   <td>{deliveryman.id}</td>
+                  <td>
+                    <Avatar
+                      src={
+                        deliveryman.avatar
+                          ? deliveryman.avatar.url
+                          : 'https://api.adorable.io/avatars/100/abott@adorable.png'
+                      }
+                      alt="avatar"
+                    />
+                  </td>
                   <td>{deliveryman.name}</td>
                   <td>{deliveryman.email}</td>
                   <td>

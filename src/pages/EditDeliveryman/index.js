@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../services/api';
 
+import AvatarInput from '../AvatarInput';
+
 import ActionHeader from '../../components/ActionHeader';
 import ActionContent from '../../components/ActionContent';
 
@@ -14,6 +16,7 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email('Insira um e-mail válido')
     .required('O e-mail é obrigatório'),
+  avatar_id: Yup.number(),
 });
 
 export default function EditDeliveryman() {
@@ -26,6 +29,7 @@ export default function EditDeliveryman() {
       const initialData = {
         name: response.data[0].name,
         email: response.data[0].email,
+        avatar_id: response.data[0].avatar_id,
       };
 
       setDeliverymanData(initialData);
@@ -33,11 +37,12 @@ export default function EditDeliveryman() {
     getDeliverymanData();
   }, [id]);
 
-  async function handleSubmit({ name, email }) {
+  async function handleSubmit({ name, email, avatar_id }) {
     try {
       await api.put(`deliverymen/${id}`, {
         name,
         email,
+        avatar_id,
       });
 
       toast.success('Entregador alterado com sucesso');
@@ -70,6 +75,7 @@ export default function EditDeliveryman() {
           schema={schema}
           id="deliverymen-form"
         >
+          <AvatarInput name="avatar_id" />
           <label htmlFor="name">Nome</label>
           <Input name="name" type="text" placeholder="John Doe" />
           <label htmlFor="name">Email</label>

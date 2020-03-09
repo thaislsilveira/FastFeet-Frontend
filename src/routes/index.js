@@ -13,6 +13,7 @@ import Recipient from '../pages/Recipient';
 import AddRecipient from '../pages/AddRecipient';
 import EditRecipients from '../pages/EditRecipient';
 import Problem from '../pages/Problem';
+import AvatarInput from '../pages/AvatarInput';
 
 export default function Routes() {
   return (
@@ -27,6 +28,7 @@ export default function Routes() {
         component={AddDeliverymen}
         isPrivate
       />
+      <Route exact path="/files" component={AvatarInput} isPrivate />
       <Route path="/deliverymen/:id" component={EditDeliverymen} isPrivate />
       <Route exact path="/recipients" component={Recipient} isPrivate />
       <Route path="/register/recipients" component={AddRecipient} isPrivate />
