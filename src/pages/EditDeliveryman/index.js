@@ -30,6 +30,7 @@ export default function EditDeliveryman() {
         name: response.data[0].name,
         email: response.data[0].email,
         avatar_id: response.data[0].avatar_id,
+        avatar_url: response.data[0].avatar.url,
       };
 
       setDeliverymanData(initialData);
@@ -75,7 +76,10 @@ export default function EditDeliveryman() {
           schema={schema}
           id="deliverymen-form"
         >
-          <AvatarInput name="avatar_id" />
+          <AvatarInput
+            name="avatar_id"
+            avatarUrl={deliverymanData && deliverymanData.avatar_url}
+          />
           <label htmlFor="name">Nome</label>
           <Input name="name" type="text" placeholder="John Doe" />
           <label htmlFor="name">Email</label>

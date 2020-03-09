@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 import api from '~/services/api';
 import { Container } from './styles';
 
-export default function AvatarInput() {
+export default function AvatarInput(props) {
+  const { avatarUrl } = props;
   const { defaultValue, registerField } = useField('avatar_id');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -17,7 +19,6 @@ export default function AvatarInput() {
     data.append('file', e.target.files[0]);
 
     const response = await api.post(`/files`, data);
-
     const { id, url } = response.data;
 
     setFile(id);
@@ -34,16 +35,16 @@ export default function AvatarInput() {
     }
   }, [preview, ref, registerField]);
 
-  console.log(defaultValue);
-
   return (
     <Container>
       <label htmlFor="avatar">
         <img
           src={
-            preview || 'https://api.adorable.io/avatars/100/abott@adorable.png'
+            preview ||
+            avatarUrl ||
+            'https://api.adorable.io/avatars/100/abott@adorable.png'
           }
-          alt=""
+          alt="avatar"
         />
 
         <input
@@ -58,3 +59,11 @@ export default function AvatarInput() {
     </Container>
   );
 }
+
+AvatarInput.propTypes = {
+  avatarUrl: PropTypes.string,
+};
+
+AvatarInput.defaultProps = {
+  avatarUrl: null,
+};
