@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { Link } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
+import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { Avatar, MyMenu, MyMenuItem } from './styles';
+
 import api from '~/services/api';
 
 import ActionContent from '~/components/ActionContent';
@@ -12,6 +14,16 @@ import DefaultTable from '~/components/DefaultTable';
 export default function Order() {
   const [product, setProduct] = useState('');
   const [orders, setOrders] = useState([]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     async function getOrders() {
@@ -90,6 +102,7 @@ export default function Order() {
               <th>Cidade</th>
               <th>Estado</th>
               <th>Status</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -99,20 +112,48 @@ export default function Order() {
                   <td>{order.id}</td>
                   <td>{order.product}</td>
                   <td>{order.recipient.name}</td>
-                  <td>{order.deliveryman.name}</td>
+                  <td>
+                    <Avatar
+                      src={
+                        order.deliveryman.avatar
+                          ? order.deliveryman.avatar.url
+                          : 'https://api.adorable.io/avatars/100/abott@adorable.png'
+                      }
+                      alt="avatar"
+                    />
+                    {order.deliveryman.name}
+                  </td>
                   <td>{order.recipient.city}</td>
                   <td>{order.recipient.state}</td>
                   <td />
                   <td>
-                    <Link to={`orders/${order.id}`}>editar</Link>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => confirmDelete(order.id)}
+                    <FaEllipsisH
+                      size={17}
+                      color="#C6C6C6"
+                      onClick={handleClick}
+                    />
+                    <MyMenu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'top',
+                      }}
                     >
-                      apagar
-                    </button>
+                      <MyMenuItem
+                        onClick={() => history.push(`orders/${order.id}`)}
+                      >
+                        <FaEdit size={13} color="#4D85EE" />
+                        Editar
+                      </MyMenuItem>
+                      <MyMenuItem onClick={() => confirmDelete(order.id)}>
+                        <FaTrash size={13} color="#DE3B3B" />
+                        Excluir
+                      </MyMenuItem>
+                    </MyMenu>
                   </td>
                 </tr>
               ))}

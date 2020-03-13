@@ -21,7 +21,7 @@ export const Content = styled.div`
       margin-left: 20px;
     }
     .nav-link {
-      color: ${lighten(0.08, '#999999')};
+      color: #444444;
     }
     li {
       margin: 0 10px;
