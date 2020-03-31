@@ -3,7 +3,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { Avatar, MyMenu, MyMenuItem } from './styles';
+import { Avatar, MyMenu, MyMenuItem, Status } from './styles';
 
 import api from '~/services/api';
 
@@ -32,7 +32,26 @@ export default function Order() {
           params: { product },
         });
 
-        setOrders(response.data);
+        const data = response.data.map(order => {
+          let statusText = '';
+
+          if (order.canceled_at) {
+            statusText = 'Cancelado';
+          } else if (order.end_date) {
+            statusText = 'Entregue';
+          } else if (order.start_date !== null) {
+            statusText = 'Retirada';
+          } else {
+            statusText = 'Pendente';
+          }
+
+          return {
+            ...order,
+            statusText,
+          };
+        });
+
+        setOrders(data);
       } catch (err) {
         toast.error('Nenhuma encomenda foi encontrada');
       }
@@ -71,6 +90,7 @@ export default function Order() {
       ],
     });
   }
+
   return (
     <>
       <ActionHeader>
@@ -96,7 +116,6 @@ export default function Order() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Produto</th>
               <th>Destinatário</th>
               <th>Entregador</th>
               <th>Cidade</th>
@@ -110,7 +129,7 @@ export default function Order() {
               orders.map(order => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
-                  <td>{order.product}</td>
+
                   <td>{order.recipient.name}</td>
                   <td>
                     <Avatar
@@ -125,7 +144,11 @@ export default function Order() {
                   </td>
                   <td>{order.recipient.city}</td>
                   <td>{order.recipient.state}</td>
-                  <td />
+                  <td>
+                    <Status status={order.statusText}>
+                      {order.statusText}
+                    </Status>
+                  </td>
                   <td>
                     <FaEllipsisH
                       size={17}
