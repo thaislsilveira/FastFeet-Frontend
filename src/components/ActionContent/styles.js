@@ -6,10 +6,11 @@ export const Container = styled.div`
   background: #fff;
   padding: 20px 40px;
   border-radius: 4px;
+  background: #f5f5f5;
 `;
 
 export const Content = styled.div`
-  /* height: 600px; */
+  background: #f5f5f5;
   form {
     max-width: 1000px;
     display: flex;

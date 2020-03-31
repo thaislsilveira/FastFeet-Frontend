@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { Link } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
+import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
-import { Avatar } from './styles';
+import { Avatar, MyMenu, MyMenuItem } from './styles';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
@@ -13,6 +13,9 @@ import DefaultTable from '~/components/DefaultTable';
 export default function Deliveryman() {
   const [name, setName] = useState('');
   const [deliverymen, setDeliveryman] = useState([]);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     async function getDeliveryman() {
@@ -63,6 +66,14 @@ export default function Deliveryman() {
     });
   }
 
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
       <ActionHeader>
@@ -97,7 +108,7 @@ export default function Deliveryman() {
             {deliverymen &&
               deliverymen.map(deliveryman => (
                 <tr key={deliveryman.id}>
-                  <td>{deliveryman.id}</td>
+                  <td>#0{deliveryman.id}</td>
                   <td>
                     <Avatar
                       src={
@@ -111,15 +122,33 @@ export default function Deliveryman() {
                   <td>{deliveryman.name}</td>
                   <td>{deliveryman.email}</td>
                   <td>
-                    <Link to={`deliverymen/${deliveryman.id}`}>editar</Link>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => confirmDelete(deliveryman.id)}
+                    <FaEllipsisH
+                      size={17}
+                      color="#C6C6C6"
+                      onClick={handleClick}
+                    />
+                    <MyMenu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'top',
+                      }}
                     >
-                      apagar
-                    </button>
+                      <MyMenuItem
+                        onClick={() => history.push(`orders/${deliveryman.id}`)}
+                      >
+                        <FaEdit size={13} color="#4D85EE" />
+                        Editar
+                      </MyMenuItem>
+                      <MyMenuItem onClick={() => confirmDelete(deliveryman.id)}>
+                        <FaTrash size={13} color="#DE3B3B" />
+                        Excluir
+                      </MyMenuItem>
+                    </MyMenu>
                   </td>
                 </tr>
               ))}

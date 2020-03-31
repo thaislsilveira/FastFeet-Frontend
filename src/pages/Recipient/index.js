@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { Link } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
+import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
+
+import { MyMenu, MyMenuItem } from './styles';
 
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
@@ -12,6 +14,9 @@ import DefaultTable from '~/components/DefaultTable';
 export default function Recipient() {
   const [name, setName] = useState('');
   const [recipients, setRecipient] = useState([]);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     async function getRecipient() {
@@ -59,6 +64,15 @@ export default function Recipient() {
       ],
     });
   }
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
       <ActionHeader>
@@ -92,25 +106,46 @@ export default function Recipient() {
             {recipients &&
               recipients.map(recipient => (
                 <tr key={recipient.id}>
-                  <td>{recipient.id}</td>
+                  <td>#0{recipient.id}</td>
                   <td>{recipient.name}</td>
                   <td>
                     {recipient.street}
+                    {', '}
                     {recipient.number}
-                    {recipient.state}
+                    {', '}
                     {recipient.city}
+                    {' - '}
+                    {recipient.state}
                   </td>
 
                   <td>
-                    <Link to={`recipients/${recipient.id}`}>editar</Link>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => confirmDelete(recipient.id)}
+                    <FaEllipsisH
+                      size={17}
+                      color="#C6C6C6"
+                      onClick={handleClick}
+                    />
+                    <MyMenu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'top',
+                      }}
                     >
-                      apagar
-                    </button>
+                      <MyMenuItem
+                        onClick={() => history.push(`orders/${recipient.id}`)}
+                      >
+                        <FaEdit size={13} color="#4D85EE" />
+                        Editar
+                      </MyMenuItem>
+                      <MyMenuItem onClick={() => confirmDelete(recipient.id)}>
+                        <FaTrash size={13} color="#DE3B3B" />
+                        Excluir
+                      </MyMenuItem>
+                    </MyMenu>
                   </td>
                 </tr>
               ))}

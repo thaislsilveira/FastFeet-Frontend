@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
-import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaPlus, FaEllipsisH, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { Avatar, MyMenu, MyMenuItem, Status } from './styles';
 
@@ -11,9 +11,12 @@ import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
 
+import MyMenuModal from './Modal';
+
 export default function Order() {
   const [product, setProduct] = useState('');
   const [orders, setOrders] = useState([]);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
 
@@ -34,6 +37,7 @@ export default function Order() {
 
         const data = response.data.map(order => {
           let statusText = '';
+          let initial = '';
 
           if (order.canceled_at) {
             statusText = 'Cancelado';
@@ -45,9 +49,15 @@ export default function Order() {
             statusText = 'Pendente';
           }
 
+          initial = order.deliveryman.name
+            .split(' ')
+            .map(n => n[0])
+            .join('');
+
           return {
             ...order,
             statusText,
+            initial,
           };
         });
 
@@ -136,7 +146,7 @@ export default function Order() {
                       src={
                         order.deliveryman.avatar
                           ? order.deliveryman.avatar.url
-                          : 'https://api.adorable.io/avatars/100/abott@adorable.png'
+                          : order.initial
                       }
                       alt="avatar"
                     />
@@ -166,6 +176,11 @@ export default function Order() {
                         horizontal: 'top',
                       }}
                     >
+                      <MyMenuItem>
+                        <FaEye size={13} color="#8E5BE8" />
+                        Vizualizar
+                        <MyMenuModal data={order} />
+                      </MyMenuItem>
                       <MyMenuItem
                         onClick={() => history.push(`orders/${order.id}`)}
                       >

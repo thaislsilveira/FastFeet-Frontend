@@ -9,9 +9,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #f5f5f5;
+
     span {
       font-size: 24px;
       font-weight: bold;
+      padding-left: 30px;
     }
 
     aside {
