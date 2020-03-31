@@ -16,7 +16,7 @@ export default function ModalAnswer({
   useEffect(() => {
     async function getHelpOrderInfo() {
       if (visible) {
-        const response = await api.get(`deliveryproblems`, {
+        const response = await api.get(`deliveryproblems/${problem_id}`, {
           params: { description },
         });
 
@@ -24,7 +24,7 @@ export default function ModalAnswer({
       }
     }
     getHelpOrderInfo();
-  }, [description, visible]);
+  }, [description, problem_id, visible]);
 
   function handleOverlayClick(event) {
     if (event.target === ref.current) {

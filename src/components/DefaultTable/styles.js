@@ -16,7 +16,7 @@ export const Table = styled.table`
   }
   tbody tr {
     background: #f5f5f5;
-    height: 80px;
+    height: 57px;
   }
 
   tbody td {

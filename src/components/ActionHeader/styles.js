@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import searchlogo from '~/assets/search.svg';
 
 export const Container = styled.div`
+  background: #f5f5f5;
   div {
     max-width: 1000px;
-    margin: 40px auto 0 auto;
+    margin: 0 auto;
+    padding-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f5f5f5;
 
     span {
       font-size: 24px;

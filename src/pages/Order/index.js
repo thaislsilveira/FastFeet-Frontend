@@ -10,12 +10,14 @@ import api from '~/services/api';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
-
-import MyMenuModal from './Modal';
+import ModalOrder from '~/components/ModalOrder';
 
 export default function Order() {
-  const [product, setProduct] = useState('');
   const [orders, setOrders] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  const [searchText, setSearchText] = useState(null);
+  const [ordersFiltered, setOrdersFiltered] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
@@ -31,9 +33,7 @@ export default function Order() {
   useEffect(() => {
     async function getOrders() {
       try {
-        const response = await api.get(`orders`, {
-          params: { product },
-        });
+        const response = await api.get(`orders`);
 
         const data = response.data.map(order => {
           let statusText = '';
@@ -68,7 +68,37 @@ export default function Order() {
     }
 
     getOrders();
-  }, [product]);
+  }, []);
+
+  useEffect(() => {
+    function searchFilter() {
+      if (!searchText) return setOrdersFiltered(orders);
+
+      const filtered = orders.filter(item => {
+        return Object.keys(item).some(key => {
+          if (item[key] === null) return false;
+          if (key === 'recipient') {
+            return Object.keys(item[key]).some(
+              keyItem =>
+                item[key][keyItem]
+                  .toString()
+                  .toLowerCase()
+                  .search(searchText.toLowerCase()) !== -1
+            );
+          }
+          return (
+            item[key]
+              .toString()
+              .toLowerCase()
+              .search(searchText.toLowerCase()) !== -1
+          );
+        });
+      });
+      return setOrdersFiltered(filtered);
+    }
+
+    searchFilter();
+  }, [orders, searchText]);
 
   async function handleDelete(id) {
     try {
@@ -101,6 +131,11 @@ export default function Order() {
     });
   }
 
+  function handleOrderChange(id) {
+    const updatedProblems = orders.filter(ord => ord.id !== id);
+    setOrders(updatedProblems);
+  }
+
   return (
     <>
       <ActionHeader>
@@ -111,7 +146,7 @@ export default function Order() {
           <aside className="blocoPesquisa">
             <input
               type="search"
-              onChange={e => setProduct(e.target.value)}
+              onChange={e => setSearchText(e.target.value)}
               placeholder="Buscar por encomendas"
             />
             <Link to="/register/orders">
@@ -135,22 +170,24 @@ export default function Order() {
             </tr>
           </thead>
           <tbody>
-            {orders &&
-              orders.map(order => (
+            {ordersFiltered &&
+              ordersFiltered.map(order => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
 
                   <td>{order.recipient.name}</td>
                   <td>
-                    <Avatar
-                      src={
-                        order.deliveryman.avatar
-                          ? order.deliveryman.avatar.url
-                          : order.initial
-                      }
-                      alt="avatar"
-                    />
-                    {order.deliveryman.name}
+                    {order.deliveryman.avatar ? (
+                      <>
+                        <Avatar
+                          src={order.deliveryman.avatar.url}
+                          alt="avatar"
+                        />
+                        <div>{order.deliveryman.name}</div>
+                      </>
+                    ) : (
+                      order.initial
+                    )}
                   </td>
                   <td>{order.recipient.city}</td>
                   <td>{order.recipient.state}</td>
@@ -176,10 +213,15 @@ export default function Order() {
                         horizontal: 'top',
                       }}
                     >
-                      <MyMenuItem>
+                      <MyMenuItem
+                        type="button"
+                        onClick={() => {
+                          setOrderId(order.id);
+                          setVisible(true);
+                        }}
+                      >
                         <FaEye size={13} color="#8E5BE8" />
                         Vizualizar
-                        <MyMenuModal data={order} />
                       </MyMenuItem>
                       <MyMenuItem
                         onClick={() => history.push(`orders/${order.id}`)}
@@ -198,6 +240,12 @@ export default function Order() {
           </tbody>
         </DefaultTable>
       </ActionContent>
+      <ModalOrder
+        visible={visible}
+        order_id={orderId}
+        hide={() => setVisible(false)}
+        handleOrderChange={handleOrderChange}
+      />
     </>
   );
 }
