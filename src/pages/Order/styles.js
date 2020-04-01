@@ -23,6 +23,20 @@ export const Avatar = styled.img`
   border-radius: 50%;
 `;
 
+export const Initial = styled.div`
+  font-size: 40px;
+  animation: transition 5s infinite;
+
+  @keyframes transition {
+    from {
+      color: #5f3554;
+    }
+    to {
+      color: #fe9c12;
+    }
+  }
+`;
+
 export const MyMenu = styled(Menu)`
   > .MuiMenu-paper {
     box-shadow: 0px 0px 2px #00000026;

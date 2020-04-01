@@ -5,7 +5,7 @@ import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
-import { Avatar, MyMenu, MyMenuItem } from './styles';
+import { Avatar, Initial, MyMenu, MyMenuItem } from './styles';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
@@ -24,7 +24,22 @@ export default function Deliveryman() {
           params: { name },
         });
 
-        setDeliveryman(response.data);
+        const data = response.data.map(deliveryman => {
+          let initial = '';
+
+          initial = deliveryman.name
+            .split(' ')
+            .map(n => n[0])
+            .join('');
+
+          return {
+            ...deliveryman,
+
+            initial,
+          };
+        });
+
+        setDeliveryman(data);
       } catch (err) {
         toast.error('Nenhum entregador foi encontrado');
       }
@@ -110,14 +125,14 @@ export default function Deliveryman() {
                 <tr key={deliveryman.id}>
                   <td>#0{deliveryman.id}</td>
                   <td>
-                    <Avatar
-                      src={
-                        deliveryman.avatar
-                          ? deliveryman.avatar.url
-                          : 'https://api.adorable.io/avatars/100/abott@adorable.png'
-                      }
-                      alt="avatar"
-                    />
+                    {deliveryman.avatar ? (
+                      <>
+                        <Avatar src={deliveryman.avatar.url} alt="avatar" />
+                        <div>{deliveryman.name}</div>
+                      </>
+                    ) : (
+                      <Initial>{deliveryman.initial}</Initial>
+                    )}
                   </td>
                   <td>{deliveryman.name}</td>
                   <td>{deliveryman.email}</td>

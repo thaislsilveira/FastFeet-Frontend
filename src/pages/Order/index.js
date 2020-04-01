@@ -3,7 +3,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { Avatar, MyMenu, MyMenuItem, Status } from './styles';
+import { Avatar, Initial, MyMenu, MyMenuItem, Status } from './styles';
 
 import api from '~/services/api';
 
@@ -186,7 +186,7 @@ export default function Order() {
                         <div>{order.deliveryman.name}</div>
                       </>
                     ) : (
-                      order.initial
+                      <Initial>{order.initial}</Initial>
                     )}
                   </td>
                   <td>{order.recipient.city}</td>
