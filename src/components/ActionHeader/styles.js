@@ -41,8 +41,8 @@ export const Container = styled.div`
       }
       input {
         border: 1px solid rgba(0, 0, 0, 0.2);
-        padding: 0 25px;
-        width: 220px;
+        padding: 0 30px;
+        width: 250px;
         background: #fff url(${searchlogo}) no-repeat 10px;
         border-radius: 4px;
         margin-left: 30px;

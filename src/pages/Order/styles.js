@@ -21,10 +21,24 @@ export const Avatar = styled.img`
   width: 38px;
   height: 38px;
   border-radius: 50%;
+  text-align: left;
+  letter-spacing: 0px;
+  opacity: 1;
+  margin-right: 5px;
+`;
+
+export const AvatarName = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: row nowrap;
 `;
 
 export const Initial = styled.div`
-  font-size: 40px;
+  font-size: 21px;
+  text-align: left;
+  letter-spacing: 0px;
+  opacity: 1;
   animation: transition 5s infinite;
 
   @keyframes transition {

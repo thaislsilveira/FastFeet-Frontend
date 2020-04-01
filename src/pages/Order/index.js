@@ -3,7 +3,14 @@ import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { Avatar, Initial, MyMenu, MyMenuItem, Status } from './styles';
+import {
+  Avatar,
+  AvatarName,
+  Initial,
+  MyMenu,
+  MyMenuItem,
+  Status,
+} from './styles';
 
 import api from '~/services/api';
 
@@ -173,20 +180,23 @@ export default function Order() {
             {ordersFiltered &&
               ordersFiltered.map(order => (
                 <tr key={order.id}>
-                  <td>{order.id}</td>
+                  <td>#0{order.id}</td>
 
                   <td>{order.recipient.name}</td>
                   <td>
                     {order.deliveryman.avatar ? (
-                      <>
+                      <AvatarName>
                         <Avatar
                           src={order.deliveryman.avatar.url}
                           alt="avatar"
                         />
                         <div>{order.deliveryman.name}</div>
-                      </>
+                      </AvatarName>
                     ) : (
-                      <Initial>{order.initial}</Initial>
+                      <AvatarName>
+                        <Initial>{order.initial}</Initial>
+                        {order.deliveryman.name}
+                      </AvatarName>
                     )}
                   </td>
                   <td>{order.recipient.city}</td>

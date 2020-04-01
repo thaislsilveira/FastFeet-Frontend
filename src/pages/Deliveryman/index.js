@@ -11,8 +11,10 @@ import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
 
 export default function Deliveryman() {
-  const [name, setName] = useState('');
+  const [name] = useState('');
   const [deliverymen, setDeliveryman] = useState([]);
+  const [searchText, setSearchText] = useState(null);
+  const [deliverymenFiltered, setDeliverymenFiltered] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
@@ -47,6 +49,28 @@ export default function Deliveryman() {
 
     getDeliveryman();
   }, [name]);
+
+  useEffect(() => {
+    function searchFilter() {
+      if (!searchText) return setDeliverymenFiltered(deliverymen);
+
+      const filtered = deliverymen.filter(item => {
+        return Object.keys(item).some(key => {
+          if (item[key] === null) return false;
+
+          return (
+            item[key]
+              .toString()
+              .toLowerCase()
+              .search(searchText.toLowerCase()) !== -1
+          );
+        });
+      });
+      return setDeliverymenFiltered(filtered);
+    }
+
+    searchFilter();
+  }, [deliverymen, searchText]);
 
   async function handleDelete(id) {
     try {
@@ -99,7 +123,7 @@ export default function Deliveryman() {
           <aside className="blocoPesquisa">
             <input
               type="search"
-              onChange={e => setName(e.target.value)}
+              onChange={e => setSearchText(e.target.value)}
               placeholder="Buscar por entregadores"
             />
             <Link to="/register/deliverymen">
@@ -120,8 +144,8 @@ export default function Deliveryman() {
             </tr>
           </thead>
           <tbody>
-            {deliverymen &&
-              deliverymen.map(deliveryman => (
+            {deliverymenFiltered &&
+              deliverymenFiltered.map(deliveryman => (
                 <tr key={deliveryman.id}>
                   <td>#0{deliveryman.id}</td>
                   <td>

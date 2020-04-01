@@ -12,8 +12,10 @@ import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
 
 export default function Recipient() {
-  const [name, setName] = useState('');
+  const [name] = useState('');
   const [recipients, setRecipient] = useState([]);
+  const [searchText, setSearchText] = useState(null);
+  const [recipientFiltered, setRecipientFiltered] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
@@ -33,6 +35,28 @@ export default function Recipient() {
 
     getRecipient();
   }, [name]);
+
+  useEffect(() => {
+    function searchFilter() {
+      if (!searchText) return setRecipientFiltered(recipients);
+
+      const filtered = recipients.filter(item => {
+        return Object.keys(item).some(key => {
+          if (item[key] === null) return false;
+
+          return (
+            item[key]
+              .toString()
+              .toLowerCase()
+              .search(searchText.toLowerCase()) !== -1
+          );
+        });
+      });
+      return setRecipientFiltered(filtered);
+    }
+
+    searchFilter();
+  }, [recipients, searchText]);
 
   async function handleDelete(id) {
     try {
@@ -83,7 +107,7 @@ export default function Recipient() {
           <aside className="blocoPesquisa">
             <input
               type="search"
-              onChange={e => setName(e.target.value)}
+              onChange={e => setSearchText(e.target.value)}
               placeholder="Buscar por destinatários"
             />
             <Link to="/register/recipients">
@@ -103,8 +127,8 @@ export default function Recipient() {
             </tr>
           </thead>
           <tbody>
-            {recipients &&
-              recipients.map(recipient => (
+            {recipientFiltered &&
+              recipientFiltered.map(recipient => (
                 <tr key={recipient.id}>
                   <td>#0{recipient.id}</td>
                   <td>{recipient.name}</td>
