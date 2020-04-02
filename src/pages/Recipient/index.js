@@ -160,7 +160,9 @@ export default function Recipient() {
                       }}
                     >
                       <MyMenuItem
-                        onClick={() => history.push(`orders/${recipient.id}`)}
+                        onClick={() =>
+                          history.push(`recipients/${recipient.id}`)
+                        }
                       >
                         <FaEdit size={13} color="#4D85EE" />
                         Editar

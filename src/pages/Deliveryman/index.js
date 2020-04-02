@@ -5,7 +5,7 @@ import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
-import { Avatar, Initial, MyMenu, MyMenuItem } from './styles';
+import { Avatar, AvatarName, Initial, MyMenu, MyMenuItem } from './styles';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
@@ -150,12 +150,15 @@ export default function Deliveryman() {
                   <td>#0{deliveryman.id}</td>
                   <td>
                     {deliveryman.avatar ? (
-                      <>
+                      <AvatarName>
                         <Avatar src={deliveryman.avatar.url} alt="avatar" />
                         <div>{deliveryman.name}</div>
-                      </>
+                      </AvatarName>
                     ) : (
-                      <Initial>{deliveryman.initial}</Initial>
+                      <AvatarName>
+                        <Initial>{deliveryman.initial}</Initial>
+                        {deliveryman.name}
+                      </AvatarName>
                     )}
                   </td>
                   <td>{deliveryman.name}</td>
@@ -178,7 +181,9 @@ export default function Deliveryman() {
                       }}
                     >
                       <MyMenuItem
-                        onClick={() => history.push(`orders/${deliveryman.id}`)}
+                        onClick={() =>
+                          history.push(`deliverymen/${deliveryman.id}`)
+                        }
                       >
                         <FaEdit size={13} color="#4D85EE" />
                         Editar

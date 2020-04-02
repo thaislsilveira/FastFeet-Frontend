@@ -27,6 +27,7 @@ export default function EditOrder() {
   useEffect(() => {
     async function getOrderData() {
       const response = await api.get(`orders/${id}`);
+      console.log(response);
       const initialData = {
         product: response.data[0].product,
         recipient_id: response.data[0].recipient,

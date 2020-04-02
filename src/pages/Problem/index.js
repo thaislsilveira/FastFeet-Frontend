@@ -122,7 +122,7 @@ export default function DeliveryProblems() {
                         }}
                       >
                         <FaEye size={13} color="#4D85EE" />
-                        Vizualizar
+                        Visualizar
                       </MyMenuItem>
                       <MyMenuItem onClick={() => confirmDelete(problem.id)}>
                         <FaTrash size={13} color="#DE3B3B" />

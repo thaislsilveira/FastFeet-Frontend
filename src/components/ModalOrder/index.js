@@ -66,7 +66,7 @@ export default function ModalAnswer({
                 <td>
                   Entrega:{' '}
                   {order.end_date !== null
-                    ? order.end_date
+                    ? format(parseISO(order.end_date), 'dd/MM/yyyy')
                     : ' - - / - - / - -'}
                 </td>
               </tr>
@@ -79,11 +79,7 @@ export default function ModalAnswer({
           {orders &&
             orders.map(order => (
               <tr key={order.id}>
-                <td>
-                  {order.signature_id !== null
-                    ? 'Ainda não foi cadastrada assiantura!'
-                    : order.signature_id}
-                </td>
+                <td>{order.signature_id}</td>
               </tr>
             ))}
         </p>

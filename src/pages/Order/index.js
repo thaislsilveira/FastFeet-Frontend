@@ -215,13 +215,18 @@ export default function Order() {
                     <MyMenu
                       id="simple-menu"
                       anchorEl={anchorEl}
+                      getContentAnchorEl={null}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
                       keepMounted
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'top',
-                      }}
                     >
                       <MyMenuItem
                         type="button"
@@ -231,7 +236,7 @@ export default function Order() {
                         }}
                       >
                         <FaEye size={13} color="#8E5BE8" />
-                        Vizualizar
+                        Visualizar
                       </MyMenuItem>
                       <MyMenuItem
                         onClick={() => history.push(`orders/${order.id}`)}
