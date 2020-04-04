@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { toast } from 'react-toastify';
 import {
   Avatar,
@@ -207,48 +208,58 @@ export default function Order() {
                     </Status>
                   </td>
                   <td>
-                    <FaEllipsisH
-                      size={17}
-                      color="#C6C6C6"
-                      onClick={handleClick}
-                    />
-                    <MyMenu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      getContentAnchorEl={null}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                      }}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <MyMenuItem
-                        type="button"
-                        onClick={() => {
-                          setOrderId(order.id);
-                          setVisible(true);
-                        }}
-                      >
-                        <FaEye size={13} color="#8E5BE8" />
-                        Visualizar
-                      </MyMenuItem>
-                      <MyMenuItem
-                        onClick={() => history.push(`orders/${order.id}`)}
-                      >
-                        <FaEdit size={13} color="#4D85EE" />
-                        Editar
-                      </MyMenuItem>
-                      <MyMenuItem onClick={() => confirmDelete(order.id)}>
-                        <FaTrash size={13} color="#DE3B3B" />
-                        Excluir
-                      </MyMenuItem>
-                    </MyMenu>
+                    <PopupState variant="popover" popupId={`${order.id}`}>
+                      {popupState => (
+                        <>
+                          <FaEllipsisH
+                            size={17}
+                            color="#C6C6C6"
+                            {...bindTrigger(popupState)}
+                          />
+                          <MyMenu
+                            id="simple-menu"
+                            {...bindMenu(popupState)}
+                            keepMounted
+                            getContentAnchorEl={null}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'center',
+                            }}
+                          >
+                            <MyMenuItem
+                              type="button"
+                              onClick={() => {
+                                popupState.close();
+                                setOrderId(order.id);
+                                setVisible(true);
+                              }}
+                            >
+                              <FaEye size={13} color="#8E5BE8" />
+                              Visualizar
+                            </MyMenuItem>
+                            <MyMenuItem
+                              onClick={() => history.push(`orders/${order.id}`)}
+                            >
+                              <FaEdit size={13} color="#4D85EE" />
+                              Editar
+                            </MyMenuItem>
+                            <MyMenuItem
+                              onClick={() => {
+                                popupState.close();
+                                confirmDelete(order.id);
+                              }}
+                            >
+                              <FaTrash size={13} color="#DE3B3B" />
+                              Excluir
+                            </MyMenuItem>
+                          </MyMenu>
+                        </>
+                      )}
+                    </PopupState>
                   </td>
                 </tr>
               ))}

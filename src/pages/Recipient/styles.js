@@ -4,8 +4,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export const MyMenu = styled(Menu)`
   > .MuiMenu-paper {
-    box-shadow: 0px 0px 2px #00000026;
+    box-shadow: 0 0 6px 0px rgba(224, 224, 224, 0.2);
   }
 `;
 
-export const MyMenuItem = styled(MenuItem)``;
+export const MyMenuItem = styled(MenuItem)`
+  vertical-align: middle;
+  svg {
+    margin-right: 6px;
+  }
+`;

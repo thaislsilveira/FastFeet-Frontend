@@ -14,6 +14,7 @@ export default function ModalAnswer({
   const ref = useRef();
 
   useEffect(() => {
+    console.log(problem_id);
     async function getHelpOrderInfo() {
       if (visible) {
         const response = await api.get(`deliveryproblems/${problem_id}`, {
@@ -24,7 +25,8 @@ export default function ModalAnswer({
       }
     }
     getHelpOrderInfo();
-  }, [description, problem_id, visible]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [description, problem_id]);
 
   function handleOverlayClick(event) {
     if (event.target === ref.current) {
@@ -36,14 +38,14 @@ export default function ModalAnswer({
     <Container visible={visible} ref={ref} onClick={handleOverlayClick}>
       <Modal visibleEffect>
         <strong>VISUALIZAR PROBLEMA</strong>
-        <p>
+        <div>
           {deliveryproblems &&
             deliveryproblems.map(deliveryproblem => (
-              <tr key={deliveryproblem.id}>
-                <td>{deliveryproblem.description}</td>
-              </tr>
+              <div key={deliveryproblem.id}>
+                <div>{deliveryproblem.description}</div>
+              </div>
             ))}
-        </p>
+        </div>
       </Modal>
     </Container>
   );
