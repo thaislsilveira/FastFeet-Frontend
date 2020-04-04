@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
 
 export const Container = styled.div`
   background: #fff;
@@ -8,7 +7,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -16,6 +15,7 @@ export const Content = styled.div`
 
   ul {
     display: flex;
+    margin-right: auto;
 
     li:first-child {
       margin-left: 20px;

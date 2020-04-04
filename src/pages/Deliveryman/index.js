@@ -172,13 +172,18 @@ export default function Deliveryman() {
                     <MyMenu
                       id="simple-menu"
                       anchorEl={anchorEl}
+                      getContentAnchorEl={null}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
                       keepMounted
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'top',
-                      }}
                     >
                       <MyMenuItem
                         onClick={() =>

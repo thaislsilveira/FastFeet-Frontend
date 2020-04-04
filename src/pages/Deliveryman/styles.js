@@ -22,12 +22,11 @@ export const Avatar = styled.img`
   text-align: left;
   letter-spacing: 0px;
   opacity: 1;
-  margin-right: 5px;
+  margin-right: 12px;
 `;
 
 export const AvatarName = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
   flex-flow: row nowrap;
 `;

@@ -57,9 +57,10 @@ export const Container = styled.div`
         color: #fff;
         border: none;
         height: 36px;
-        vertical-align: middle;
         svg {
-          vertical-align: middle;
+          width: 16px;
+          height: 16px;
+          vertical-align: bottom;
           margin-right: 5px;
         }
       }
