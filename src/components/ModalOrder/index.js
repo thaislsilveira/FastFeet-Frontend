@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import api from '../../services/api';
-import { Container, Modal } from './styles';
+import { Container, Modal, Signature, SignatureBlock, Text } from './styles';
 
 export default function ModalAnswer({
   order_id,
@@ -36,39 +36,53 @@ export default function ModalAnswer({
     <Container visible={visible} ref={ref} onClick={handleOverlayClick}>
       <Modal visibleEffect>
         <strong>Informações da encomenda</strong>
-        <p>
-          {orders &&
-            orders.map(order => (
-              <tr key={order.id}>
+        {orders &&
+          orders.map(order => (
+            <tr key={order.id}>
+              <p>
                 <td>
                   {order.recipient.street}
                   {', '}
                   {order.recipient.number}
                 </td>
+              </p>
+              <p>
+                {' '}
                 <td>
                   {order.recipient.city}
                   {' - '}
                   {order.recipient.state}
                 </td>
+              </p>
+              <p>
+                {' '}
                 <td>{order.recipient.cep}</td>
-              </tr>
-            ))}
-        </p>
+              </p>
+            </tr>
+          ))}
+
         <br />
         <strong>Datas</strong>
         <p>
           {orders &&
             orders.map(order => (
               <tr key={order.id}>
-                <td>
-                  Retirada: {format(parseISO(order.start_date), 'dd/MM/yyyy')}
-                </td>
-                <td>
-                  Entrega:{' '}
-                  {order.end_date !== null
-                    ? format(parseISO(order.end_date), 'dd/MM/yyyy')
-                    : ' - - / - - / - -'}
-                </td>
+                <p>
+                  {' '}
+                  <td>
+                    <strong>Retirada:</strong>
+                    {format(parseISO(order.start_date), ' dd/MM/yyyy')}
+                  </td>
+                </p>
+                <p>
+                  {' '}
+                  <td>
+                    <strong>Entrega:</strong>
+                    {order.end_date !== null
+                      ? format(parseISO(order.end_date), 'dd/MM/yyyy')
+                      : ' - - / - - / - -'}
+                  </td>
+                </p>
               </tr>
             ))}
         </p>
@@ -78,9 +92,20 @@ export default function ModalAnswer({
         <p>
           {orders &&
             orders.map(order => (
-              <tr key={order.id}>
-                <td>{order.signature_id}</td>
-              </tr>
+              <div key={order.id}>
+                <p>
+                  {' '}
+                  {order.signature ? (
+                    <SignatureBlock>
+                      <Signature src={order.signature.url} alt="signature" />
+                    </SignatureBlock>
+                  ) : (
+                    <SignatureBlock>
+                      <Text>Não existe assinatura cadastrada!</Text>
+                    </SignatureBlock>
+                  )}
+                </p>
+              </div>
             ))}
         </p>
       </Modal>

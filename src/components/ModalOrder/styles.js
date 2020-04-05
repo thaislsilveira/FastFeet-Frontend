@@ -42,12 +42,12 @@ export const Modal = styled.div`
     color: #666666;
     font-size: 16px;
     line-height: 30px;
-    text-align: justify;
+    text-align: left;
   }
   form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     span {
       color: #ee4d64;
       align-self: flex-start;
@@ -59,20 +59,25 @@ export const Modal = styled.div`
       margin: 10px 0;
       font-size: 17px;
     }
-    textarea {
-      padding: 10px;
-      border-radius: 4px;
-      height: 150px;
-      margin-bottom: 15px;
-    }
-    button {
-      font-size: 17px;
-      font-weight: bold;
-      border-radius: 4px;
-      padding: 13px;
-      background: #ee4d64;
-      color: #fff;
-      border: none;
-    }
   }
+`;
+
+export const Signature = styled.img`
+  width: 234px;
+  height: 36px;
+  margin: auto;
+`;
+
+export const SignatureBlock = styled.div`
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+`;
+
+export const Text = styled.div`
+  border-radius: 50%;
+  margin: auto;
+  text-align: center;
+  font-size: 21px;
+  opacity: 1;
 `;

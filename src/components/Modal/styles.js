@@ -59,20 +59,5 @@ export const Modal = styled.div`
       margin: 10px 0;
       font-size: 17px;
     }
-    textarea {
-      padding: 10px;
-      border-radius: 4px;
-      height: 150px;
-      margin-bottom: 15px;
-    }
-    button {
-      font-size: 17px;
-      font-weight: bold;
-      border-radius: 4px;
-      padding: 13px;
-      background: #ee4d64;
-      color: #fff;
-      border: none;
-    }
   }
 `;
