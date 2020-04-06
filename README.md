@@ -27,6 +27,7 @@ yarn start
 ### Ferramentas
 -Durante o processo de desenvolvimento vários conceitos foram colocados em prática, como:
 Padronização de código utilizando Eslint / Prettier
-* Componentização (Tanto na aplicação web, quanto mobile) *Utilização de React Hooks
-
-*  * *Utilização de React Redux, Redux saga *Configuração de rotas com react-router-dom
+* Componentização (Tanto na aplicação web, quanto mobile) 
+* Utilização de React Hooks
+* Utilização de React Redux, Redux saga
+* Configuração de rotas com react-router-dom
