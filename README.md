@@ -6,7 +6,8 @@ Web representa a visão do administrador, no caso, o dono ou profissionais que t
 os entregadores, destinatários e a visualização de problemas.
 
 ### Instruções
-Em caso de download do projeto você precisará baixar as dependências:
+Em caso de download do projeto você precisará baixar as dependências:  
+
 **Necessário:** Yarn ou Npm instalados  
 
 Você precisará também do backend do projeto, que está no seguinte repositório: [*backend*](https://github.com/thaislsilveira/FastFeet)  
