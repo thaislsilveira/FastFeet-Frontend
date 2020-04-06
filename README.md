@@ -7,7 +7,7 @@ os entregadores, destinatários e a visualização de problemas.
 
 ### Instruções
 Em caso de download do projeto você precisará baixar as dependências:
-**Necessário:**Yarn ou Npm instalados  
+**Necessário:** Yarn ou Npm instalados  
 
 Você precisará também do backend do projeto, que está no seguinte repositório: [*backend*](https://github.com/thaislsilveira/FastFeet)  
 
@@ -28,4 +28,4 @@ yarn start
 -Durante o processo de desenvolvimento vários conceitos foram colocados em prática, como:
 Padronização de código utilizando Eslint / Prettier
 
-*Componentização (Tanto na aplicação web, quanto mobile) *Utilização de React Hooks *Utilização de React Redux, Redux saga *Configuração de rotas com react-router-dom
+* Componentização (Tanto na aplicação web, quanto mobile) *Utilização de React Hooks *Utilização de React Redux, Redux saga *Configuração de rotas com react-router-dom
