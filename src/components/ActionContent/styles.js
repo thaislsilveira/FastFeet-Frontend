@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0px auto 0 auto;
   padding: 20px 40px;
   border-radius: 4px;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Content = styled.div`
   background: #f5f5f5;
   form {
-    max-width: 1000px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     margin: 0 auto 10px auto;

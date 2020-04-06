@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit } from 'react-icons/fa';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
@@ -17,7 +18,6 @@ export default function Recipient() {
   const [searchText, setSearchText] = useState(null);
   const [recipientFiltered, setRecipientFiltered] = useState([]);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
 
   useEffect(() => {
@@ -89,14 +89,6 @@ export default function Recipient() {
     });
   }
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <>
       <ActionHeader>
@@ -143,40 +135,46 @@ export default function Recipient() {
                   </td>
 
                   <td>
-                    <FaEllipsisH
-                      size={17}
-                      color="#C6C6C6"
-                      onClick={handleClick}
-                    />
-                    <MyMenu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      getContentAnchorEl={null}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                      }}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <MyMenuItem
-                        onClick={() =>
-                          history.push(`recipients/${recipient.id}`)
-                        }
-                      >
-                        <FaEdit size={13} color="#4D85EE" />
-                        Editar
-                      </MyMenuItem>
-                      <MyMenuItem onClick={() => confirmDelete(recipient.id)}>
-                        <FaTrash size={13} color="#DE3B3B" />
-                        Excluir
-                      </MyMenuItem>
-                    </MyMenu>
+                    <PopupState variant="popover" popupId={`${recipient.id}`}>
+                      {popupState => (
+                        <>
+                          <FaEllipsisH
+                            size={17}
+                            color="#C6C6C6"
+                            {...bindTrigger(popupState)}
+                          />
+                          <MyMenu
+                            id="simple-menu"
+                            {...bindMenu(popupState)}
+                            keepMounted
+                            getContentAnchorEl={null}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'center',
+                            }}
+                          >
+                            <MyMenuItem
+                              onClick={() =>
+                                history.push(`recipients/${recipient.id}`)
+                              }
+                            >
+                              <FaEdit size={13} color="#4D85EE" />
+                              Editar
+                            </MyMenuItem>
+                            <MyMenuItem
+                              onClick={() => confirmDelete(recipient.id)}
+                            >
+                              <FaTrash size={13} color="#DE3B3B" />
+                              Excluir
+                            </MyMenuItem>
+                          </MyMenu>
+                        </>
+                      )}
+                    </PopupState>
                   </td>
                 </tr>
               ))}

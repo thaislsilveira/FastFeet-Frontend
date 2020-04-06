@@ -79,7 +79,7 @@ export default function ModalAnswer({
                   <td>
                     <strong>Entrega:</strong>
                     {order.end_date !== null
-                      ? format(parseISO(order.end_date), 'dd/MM/yyyy')
+                      ? format(parseISO(order.end_date), ' dd/MM/yyyy')
                       : ' - - / - - / - -'}
                   </td>
                 </p>

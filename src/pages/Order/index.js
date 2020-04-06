@@ -27,16 +27,7 @@ export default function Order() {
   const [searchText, setSearchText] = useState(null);
   const [ordersFiltered, setOrdersFiltered] = useState([]);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
-
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   useEffect(() => {
     async function getOrders() {

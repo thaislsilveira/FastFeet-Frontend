@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0 25px;
-
   background: #f5f5f5;
   font-size: 16px;
   width: 100%;
   text-align: left;
+  white-space: nowrap;
 
   thead {
     tr {
@@ -24,5 +24,12 @@ export const Table = styled.table`
     padding-right: 50px;
     margin-bottom: 25px;
     border-radius: 4px;
+  }
+  tr {
+    td:first-child,
+    th:first-child {
+      padding-left: 40px;
+      padding-right: 20px;
+    }
   }
 `;

@@ -5,7 +5,7 @@ import searchlogo from '~/assets/search.svg';
 export const Container = styled.div`
   background: #f5f5f5;
   div {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding-top: 40px;
     display: flex;

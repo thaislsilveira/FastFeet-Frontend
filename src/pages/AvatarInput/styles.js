@@ -24,3 +24,23 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const ImageAvatar = styled.div`
+  border-radius: 50%;
+  font-size: 16px;
+  text-align: center;
+  opacity: 1;
+  color: #dddddd;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+
+  border: 1px dashed #dddddd;
+  .icon {
+    margin: auto;
+    display: block;
+  }
+  div {
+    padding-top: 28px;
+  }
+`;
