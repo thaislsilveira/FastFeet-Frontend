@@ -14,7 +14,6 @@ Você precisará também do backend do projeto, que está no seguinte repositór
 
 -Execute um dos comandos abaixo:
 ```
-npm install
 yarn
 
 ``` 
@@ -22,7 +21,6 @@ yarn
 
 ```
 yarn start
- npm start
  
 ```
 ### Ferramentas
