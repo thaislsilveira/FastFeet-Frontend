@@ -1,4 +1,9 @@
-# FastFeet-Frontend
+# FastFeet 
+Para ter acesso ao  -> [*backend*](https://github.com/thaislsilveira/FastFeet)  
+
+Para ter acesso ao -> [*frontend*](https://github.com/thaislsilveira/FastFeet-Frontend)  
+
+Para ter acesso ao -> [*mobile*](https://github.com/thaislsilveira/FastFeet-Mobile)  
 
 ## Sobre o Frontend
 Frontend desenvolvido no treinamento GoStack, aplicado pela Rocketseat. Este desafio faz parte do projeto final do GoStack. A versão 
