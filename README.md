@@ -20,13 +20,11 @@ Você precisará também do backend do projeto, que está no seguinte repositór
 -Execute um dos comandos abaixo:
 ```
 yarn
-
 ``` 
 -Para iniciar o projeto, basta executar o comando abaixo:
 
 ```
-yarn start
- 
+yarn start 
 ```
 ### Ferramentas
 -Durante o processo de desenvolvimento vários conceitos foram colocados em prática, como:
