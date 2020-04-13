@@ -33,6 +33,7 @@ export default function AddRecipient() {
     cep,
   }) {
     try {
+      const numberCep = parseInt(cep.replace(/[^A-Z\d\s]/gi, ''), 10);
       await api.post(`/recipients`, {
         name,
         street,
@@ -40,7 +41,7 @@ export default function AddRecipient() {
         complement,
         state,
         city,
-        cep,
+        cep: numberCep,
       });
 
       toast.success('Destinatário cadastrado com sucesso');

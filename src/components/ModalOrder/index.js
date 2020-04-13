@@ -71,14 +71,16 @@ export default function ModalAnswer({
                   {' '}
                   <td>
                     <strong>Retirada:</strong>
-                    {format(parseISO(order.start_date), ' dd/MM/yyyy')}
+                    {order.start_date
+                      ? format(parseISO(order.start_date), ' dd/MM/yyyy')
+                      : ' - - / - - / - -'}
                   </td>
                 </p>
                 <p>
                   {' '}
                   <td>
                     <strong>Entrega:</strong>
-                    {order.end_date !== null
+                    {order.end_date
                       ? format(parseISO(order.end_date), ' dd/MM/yyyy')
                       : ' - - / - - / - -'}
                   </td>
