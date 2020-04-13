@@ -2,7 +2,7 @@
 
 ## Sobre o Frontend
 Frontend desenvolvido no treinamento GoStack, aplicado pela Rocketseat. Este desafio faz parte do projeto final do GoStack. A versão 
-Web representa a visão do administrador, no caso, o dono ou profissionais que trabalham na mesma, onde é possível gerenciar as encomendas, 
+Web representa a visão do administrador, onde é possível gerenciar as encomendas, 
 os entregadores, destinatários e a visualização de problemas.
 
 ### Instruções
