@@ -4,17 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEllipsisH, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { toast } from 'react-toastify';
-import {
-  Avatar,
-  AvatarName,
-  Initial,
-  MyMenu,
-  MyMenuItem,
-  Status,
-} from './styles';
+import { Avatar, AvatarName, MyMenu, MyMenuItem, Status } from './styles';
 
 import api from '~/services/api';
 
+import AvatarInitial from '~/components/AvatarInitial';
 import ActionContent from '~/components/ActionContent';
 import ActionHeader from '~/components/ActionHeader';
 import DefaultTable from '~/components/DefaultTable';
@@ -116,7 +110,8 @@ export default function Order() {
   function confirmDelete(id) {
     confirmAlert({
       title: 'Confirmação de exclusão',
-      message: 'Você quer mesmo excluir essa encomenda?',
+      message:
+        'Você quer mesmo excluir essa encomenda? Ao excluir você também exclui os Problemas atribuidos a ela.',
       buttons: [
         {
           label: 'Sim',
@@ -172,7 +167,7 @@ export default function Order() {
             {ordersFiltered &&
               ordersFiltered.map(order => (
                 <tr key={order.id}>
-                  <td>#0{order.id}</td>
+                  <td>#{order.id}</td>
 
                   <td>{order.recipient.name}</td>
                   <td>
@@ -186,7 +181,7 @@ export default function Order() {
                       </AvatarName>
                     ) : (
                       <AvatarName>
-                        <Initial>{order.initial}</Initial>
+                        <AvatarInitial>{order.initial}</AvatarInitial>
                         {order.deliveryman.name}
                       </AvatarName>
                     )}

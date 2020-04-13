@@ -26,7 +26,7 @@ export default function EditDeliveryman() {
   useEffect(() => {
     async function getDeliverymanData() {
       const response = await api.get(`deliverymen/${id}`);
-      console.log(response);
+
       const initialData = {
         name: response.data[0].name,
         email: response.data[0].email,

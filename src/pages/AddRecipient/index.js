@@ -8,6 +8,7 @@ import api from '../../services/api';
 
 import ActionHeader from '../../components/ActionHeader';
 import ActionContent from '../../components/ActionContent';
+import InputMask from '../../components/InputMask';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrigatório'),
@@ -18,9 +19,7 @@ const schema = Yup.object().shape({
   complement: Yup.string(),
   state: Yup.string().required('O Estado é obrigatório'),
   city: Yup.string().required('A cidade é obrigatório'),
-  cep: Yup.number()
-    .positive()
-    .required('O CEP é obrigatório'),
+  cep: Yup.string().required('O CEP é obrigatório'),
 });
 
 export default function AddRecipient() {
@@ -82,7 +81,12 @@ export default function AddRecipient() {
           <label htmlFor="state">Estado</label>
           <Input name="state" type="text" placeholder="Ludwig van Beethoven" />
           <label htmlFor="cep">CEP</label>
-          <Input name="cep" type="number" placeholder="09960-580" />
+          <InputMask
+            name="cep"
+            type="text"
+            placeholder="15710-000"
+            mask="99999-999"
+          />
         </Form>
       </ActionContent>
     </>

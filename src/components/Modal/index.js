@@ -14,7 +14,6 @@ export default function ModalAnswer({
   const ref = useRef();
 
   useEffect(() => {
-    console.log(problem_id);
     async function getHelpOrderInfo() {
       if (visible) {
         const response = await api.get(`deliveryproblems/${problem_id}`, {

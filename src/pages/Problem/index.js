@@ -95,7 +95,7 @@ export default function DeliveryProblems() {
             {problems &&
               problems.map(problem => (
                 <tr key={problem.id}>
-                  <td>#0{problem.order.id}</td>
+                  <td>#{problem.order.id}</td>
                   <td>{problem.description}</td>
                   <td>
                     <PopupState variant="popover" popupId={`${problem.id}`}>
@@ -134,7 +134,7 @@ export default function DeliveryProblems() {
                             <MyMenuItem
                               onClick={() => {
                                 popupState.close();
-                                confirmDelete(problem.id);
+                                confirmDelete(problem.order.id);
                               }}
                             >
                               <FaTrash size={13} color="#DE3B3B" />

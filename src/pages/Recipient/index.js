@@ -68,7 +68,16 @@ export default function Recipient() {
 
       toast.success('O destinatário foi excluído');
     } catch (err) {
-      toast.error(err.response.data.error);
+      if (
+        err.response.data.error.message ===
+        'null value in column "recipient_id" violates not-null constraint'
+      ) {
+        toast.error(
+          'Não foi possível deletar o destinatário por fazer parte de uma entrega.'
+        );
+      } else {
+        toast.error('Não foi possível deletar o destinatário');
+      }
     }
   }
 
@@ -122,7 +131,7 @@ export default function Recipient() {
             {recipientFiltered &&
               recipientFiltered.map(recipient => (
                 <tr key={recipient.id}>
-                  <td>#0{recipient.id}</td>
+                  <td>#{recipient.id}</td>
                   <td>{recipient.name}</td>
                   <td>
                     {recipient.street}
